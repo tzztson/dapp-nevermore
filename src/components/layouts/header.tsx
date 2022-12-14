@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     Container,
     Button,
@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             "& .logo": {
                 display: "flex",
                 alignItems: "center",
+                cursor: "pointer",
                 "& > h3": {
                     margin: 0,
                     fontSize: "1.8rem",
@@ -124,6 +125,7 @@ const WalletButton = styled(Button)({
 });
 
 export default function Header() {
+    const navigate = useNavigate();
     const classes = useStyles();
     const [openNav, setOpenNav] = React.useState(false);
 
@@ -154,7 +156,7 @@ export default function Header() {
                         </ul>
                     </Box>
                     <Box className="wallet_button">
-                        <WalletButton variant="contained" color="secondary">
+                        <WalletButton variant="contained" color="primary">
                             <img
                                 src={metamaskLogo}
                                 alt=""
@@ -175,7 +177,10 @@ export default function Header() {
                 <Box className={classes.content}>
                     <Box>
                         <Box>
-                            <Box className="logo">
+                            <Box
+                                className="logo"
+                                onClick={() => navigate("/home")}
+                            >
                                 <img
                                     src={require("../../assets/image/logo.png")}
                                     alt=""
@@ -203,7 +208,7 @@ export default function Header() {
                             <Box className="wallet_button desktop">
                                 <WalletButton
                                     variant="contained"
-                                    color="secondary"
+                                    color="primary"
                                 >
                                     <img
                                         src={metamaskLogo}
