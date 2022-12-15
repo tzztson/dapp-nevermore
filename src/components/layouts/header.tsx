@@ -193,7 +193,7 @@ export default function Header() {
                             <Box className="title desktop">
                                 <ul>
                                     <li>
-                                        <Link to="">Staking</Link>
+                                        <Link to="/stake">Staking</Link>
                                     </li>
                                     <li>
                                         <Link to="">Twitter</Link>
