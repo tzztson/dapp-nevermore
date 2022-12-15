@@ -5,8 +5,9 @@ import {
     Button,
     InputBase,
     Typography,
+    Fade,
 } from "@material-ui/core";
-import { makeStyles, Theme, styled } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import MarkBox from "../components/markBox";
 
 import symbol1 from "../assets/image/symbol1.png";
@@ -68,12 +69,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         textAlign: "center",
         justifyContent: "center",
         alignItems: "center",
-        padding: "96px 80px 80px 80px",
+        flex: "1",
+        padding: "80px 0",
         borderRadius: "36px",
         border: "6px solid #391553",
         backgroundImage: `url("./assets/stakedbackground.png")`,
         "@media screen and (max-width: 1360px)": {
-            margin: "24px 0px 64px 0px",
+            padding: "80px",
+            flex: "unset",
         },
         "@media screen and (max-width: 750px)": {
             width: "100%",
@@ -90,7 +93,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     handleStake: {
         border: "6px solid #391553",
-        background: "red",
         backgroundImage: `url("./assets/stakedbackground.png")`,
         display: "flex",
         flexDirection: "column",
@@ -118,8 +120,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
     },
     stakeTitle: {
-        fontSize: "24px",
-        fontWeight: "bold",
+        fontSize: "4rem",
+        fontFamily: "visual",
+        "@media screen and (max-width: 940px)": {
+            fontSize: "3rem !important",
+        },
+        "@media screen and (max-width: 450px)": {
+            fontSize: "2rem !important",
+        },
     },
     amountInput: {
         color: "white",
@@ -131,6 +139,8 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderRadius: "36px",
         color: "white",
         width: "100px",
+        letterSpacing: "2px",
+        fontFamily: "cool",
     },
     stakeButton: {
         color: "white",
@@ -138,7 +148,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         textTransform: "capitalize",
         borderRadius: "36px",
         width: "240px",
-        fontSize: "20px",
+        fontSize: "24px",
+        letterSpacing: "2px",
+        fontFamily: "duty",
         "@media screen and (max-width: 750px)": {
             width: "80%",
         },
@@ -172,7 +184,9 @@ const useStyles = makeStyles((theme: Theme) => ({
             textTransform: "capitalize",
             borderRadius: "36px",
             width: "100%",
-            fontSize: "20px",
+            letterSpacing: "1px",
+            fontFamily: "duty",
+            fontSize: "24px",
             padding: "8px 24px",
         },
     },
@@ -181,18 +195,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: "column",
         padding: "12px",
         width: "100%",
-        "@media screen and (max-width: 1360px)": {
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: "12px",
-            alignItems: "center",
-        },
     },
     label: {
-        fontWeight: "bold",
+        fontFamily: "visual",
+        fontSize: "2.5rem",
     },
     balance: {
-        fontSize: "24px",
+        fontSize: "2rem",
+        fontFamily: "cool",
     },
 }));
 
@@ -201,80 +211,82 @@ export default function Stake() {
 
     return (
         <Container maxWidth={"xl"} className={classes.root}>
-            <Box className={classes.stakeBoard}>
-                <Box className={classes.mainBoard}>
-                    <Box className={classes.boxContainer}>
-                        {MarkBoxConstants.map((ele, ind) => (
-                            <MarkBox
-                                key={ind}
-                                bgColor={ele.bgColor}
-                                imageSrc={ele.imageSrc}
-                                typo={ele.typo}
-                                value={ele.value}
-                            />
-                        ))}
-                    </Box>
-                    <Box className={classes.handleStake}>
-                        <Typography className={classes.stakeTitle}>
-                            Stake your $WD Tokens
-                        </Typography>
-                        <Box className={classes.stakeAmount}>
-                            <InputBase
-                                placeholder="0"
-                                className={classes.amountInput}
-                            />
+            <Fade in={true} timeout={1000}>
+                <Box className={classes.stakeBoard}>
+                    <Box className={classes.mainBoard}>
+                        <Box className={classes.boxContainer}>
+                            {MarkBoxConstants.map((ele, ind) => (
+                                <MarkBox
+                                    key={ind}
+                                    bgColor={ele.bgColor}
+                                    imageSrc={ele.imageSrc}
+                                    typo={ele.typo}
+                                    value={ele.value}
+                                />
+                            ))}
+                        </Box>
+                        <Box className={classes.handleStake}>
+                            <Typography className={classes.stakeTitle}>
+                                Stake your $WD Tokens
+                            </Typography>
+                            <Box className={classes.stakeAmount}>
+                                <InputBase
+                                    placeholder="0"
+                                    className={classes.amountInput}
+                                />
+                                <Button
+                                    className={classes.maxButton}
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Max
+                                </Button>
+                            </Box>
                             <Button
-                                className={classes.maxButton}
+                                className={classes.stakeButton}
                                 variant="contained"
                                 color="primary"
                             >
-                                Max
-                            </Button>
-                        </Box>
-                        <Button
-                            className={classes.stakeButton}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Stake
-                        </Button>
-                    </Box>
-                </Box>
-                <Box className={classes.handleBoard}>
-                    <Box className={classes.handleContainer}>
-                        <Box className={classes.handleLogo}>
-                            <img src={symbol4} alt="handleLogo" />
-                        </Box>
-                        <Box className={classes.labelContainer}>
-                            <Typography className={classes.label}>
-                                My staked tokens
-                            </Typography>
-                            <Typography className={classes.balance}>
-                                0.00000 $WD
-                            </Typography>
-                        </Box>
-                        <Box className={classes.labelContainer}>
-                            <Typography className={classes.label}>
-                                Estimated Rewards
-                            </Typography>
-                            <Typography className={classes.balance}>
-                                0.0000 WETH
-                            </Typography>
-                        </Box>
-                        <Box className={classes.handleButtongroup}>
-                            <Button variant="contained" color="primary">
-                                ClaimReward
-                            </Button>
-                            <Button variant="contained" color="primary">
-                                Withdraw
-                            </Button>
-                            <Button variant="contained" color="primary">
-                                Referral
+                                Stake
                             </Button>
                         </Box>
                     </Box>
+                    <Box className={classes.handleBoard}>
+                        <Box className={classes.handleContainer}>
+                            <Box className={classes.handleLogo}>
+                                <img src={symbol4} alt="handleLogo" />
+                            </Box>
+                            <Box className={classes.labelContainer}>
+                                <Typography className={classes.label}>
+                                    My staked tokens
+                                </Typography>
+                                <Typography className={classes.balance}>
+                                    0.00000 $WD
+                                </Typography>
+                            </Box>
+                            <Box className={classes.labelContainer}>
+                                <Typography className={classes.label}>
+                                    Estimated Rewards
+                                </Typography>
+                                <Typography className={classes.balance}>
+                                    0.0000 WETH
+                                </Typography>
+                            </Box>
+                            <Box className={classes.handleButtongroup}>
+                                <Button variant="contained" color="primary">
+                                    ClaimReward
+                                </Button>
+                                <Button variant="contained" color="primary">
+                                    Withdraw
+                                </Button>
+                                <Button variant="contained" color="primary">
+                                    Referral
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Box>
                 </Box>
-            </Box>
+            </Fade>
         </Container>
     );
 }

@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     centerTypo: {
         textAlign: "center",
+        fontFamily: "cool",
+        letterSpacing: "1px",
         fontSize: "24px",
         minWidth: "250px",
     },

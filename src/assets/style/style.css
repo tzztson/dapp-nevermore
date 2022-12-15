@@ -19,3 +19,23 @@ a {
     text-decoration: none;
     color: white;
 }
+
+@font-face {
+    font-family: duty;
+    src: url("../font/call-of-ops-duty/font.otf");
+}
+
+@font-face {
+    font-family: komika;
+    src: url("../font/komika-poster/font.ttf");
+}
+
+@font-face {
+    font-family: visual;
+    src: url("../font/visual-magnets/font.ttf");
+}
+
+@font-face {
+    font-family: cool;
+    src: url("../font/coolvetica/font.ttf");
+}

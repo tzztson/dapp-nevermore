@@ -53,9 +53,8 @@ const useStyles = makeStyles((theme: Theme) => ({
                 cursor: "pointer",
                 "& > h3": {
                     margin: 0,
-                    fontSize: "1.8rem",
-                    fontWeight: "bold",
-                    fontFamily: "sans-serif",
+                    fontSize: "2.8rem",
+                    fontFamily: "komika",
                     color: "white",
                 },
                 "@media screen and (max-width: 500px)": {
@@ -80,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                     width: "100%",
                     "& a": {
                         fontSize: "1.3rem",
-                        fontFamily: "roboto",
+                        fontFamily: "cool",
                     },
                     [theme.breakpoints.up("md")]: {
                         padding: "0",

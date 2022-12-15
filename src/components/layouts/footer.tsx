@@ -1,14 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-    Container,
-    Box,
-    Button,
-    Typography,
-    Fade,
-    Grid,
-} from "@material-ui/core";
-import { makeStyles, Theme, styled } from "@material-ui/core/styles";
+import { Container, Box, Typography, Fade } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import mediumIcon from "../../assets/image/social_medium.svg";
+import twitterIcon from "../../assets/image/social_twitter.svg";
+import discordIcon from "../../assets/image/social_discord.svg";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -25,10 +21,24 @@ const useStyles = makeStyles((theme: Theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
         "& > div:first-child": {
-            flex: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            "@media screen and (max-width: 500px)": {
+                display: "none !important",
+            },
+            "& h4": {
+                fontFamily: "komika",
+            },
         },
         "& > div:last-child": {
-            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1.2rem",
+            "@media screen and (max-width: 500px)": {
+                width: "100%",
+            },
         },
         "& a": {
             color: "gray",
@@ -44,75 +54,47 @@ export default function Footer() {
 
     return (
         <Box className={classes.root}>
-            <Container maxWidth={"xl"}>
-                <Box className={classes.footer}>
-                    <Box>
-                        <Typography variant="h4">Nevermore</Typography>
-                        <Typography variant="body1">
-                            Build fully functional accessible web applications
-                            faster than ever
-                        </Typography>
+            <Fade in={true}>
+                <Container maxWidth={"xl"}>
+                    <Box className={classes.footer}>
+                        <Box>
+                            <img
+                                src={require("../../assets/image/logo.png")}
+                                alt=""
+                                width={65}
+                                height={65}
+                            />
+                            <Typography variant="h4">Nevermore</Typography>
+                        </Box>
+                        <Box>
+                            <Link to="">
+                                <img
+                                    src={twitterIcon}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            </Link>
+                            <Link to="">
+                                <img
+                                    src={discordIcon}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            </Link>
+                            <Link to="">
+                                <img
+                                    src={mediumIcon}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            </Link>
+                        </Box>
                     </Box>
-                    <Box>
-                        <Grid container>
-                            <Grid item sm={12} md={4}>
-                                <ul>
-                                    <li>
-                                        <Typography variant="h5">
-                                            About
-                                        </Typography>
-                                    </li>
-                                    <li>
-                                        <Link to="">Features</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Pricing</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Support</Link>
-                                    </li>
-                                </ul>
-                            </Grid>
-                            <Grid item sm={12} md={4}>
-                                <ul>
-                                    <li>
-                                        <Typography variant="h5">
-                                            About
-                                        </Typography>
-                                    </li>
-                                    <li>
-                                        <Link to="">Features</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Pricing</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Support</Link>
-                                    </li>
-                                </ul>
-                            </Grid>
-                            <Grid item sm={12} md={4}>
-                                <ul>
-                                    <li>
-                                        <Typography variant="h5">
-                                            Community
-                                        </Typography>
-                                    </li>
-                                    <li>
-                                        <Link to="">Twitter</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Medium</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="">Discord</Link>
-                                    </li>
-                                </ul>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Box>
-            </Container>
+                </Container>
+            </Fade>
         </Box>
     );
 }

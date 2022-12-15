@@ -25,13 +25,18 @@ const useStyles = makeStyles((theme: Theme) => ({
             flex: "7",
             paddingLeft: "3%",
             "& h1": {
-                fontSize: "6rem",
-                fontFamily: "fantasty",
+                fontSize: "6.5rem",
+                fontFamily: "visual",
                 marginTop: "70px",
+                color: "yellow",
+                "& > span": {
+                    fontSize: "7rem",
+                    color: "white",
+                },
             },
             "& h4": {
                 fontSize: "2.5rem",
-                fontFamily: "",
+                fontFamily: "duty",
                 margin: "40px 0",
             },
         },
@@ -74,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         "& h3": {
             textAlign: "center",
             fontSize: "3.5rem",
+            fontFamily: "visual",
             "@media screen and (max-width: 640px)": {
                 fontSize: "2rem",
             },
@@ -90,6 +96,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         alignItems: "center",
         textAlign: "center",
         gap: "10px",
+        "& h5": {
+            letterSpacing: "1px",
+            fontFamily: "duty",
+        },
         "@media screen and (max-width: 450px)": {
             "& img": {
                 width: "100%",
@@ -102,6 +112,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 const StakeButton = styled(Button)({
     padding: "12px 70px",
     fontSize: "1.4rem",
+    fontFamily: "cool",
+    letterSpacing: "3px",
     borderRadius: "50px",
     fontWeight: "bold",
     color: "black",
@@ -119,7 +131,9 @@ export default function Home() {
             <Fade in={true} timeout={1000} appear={true}>
                 <Box className={classes.main}>
                     <Box>
-                        <Typography variant="h1">Nevermore DeFi</Typography>
+                        <Typography variant="h1">
+                            Nevermore <span>DeFi</span>
+                        </Typography>
                         <Typography variant="h4">
                             Use the words 'low rewards' and 'inflation' to
                             address me again and I can't gurantee your safety
