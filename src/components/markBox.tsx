@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import { makeStyles, Theme, styled } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     markBox: {
@@ -50,7 +50,7 @@ const MarkBox = ({ bgColor, imageSrc, typo, value }: MarkBox) => {
     return (
         <Box className={classes.markBox} sx={{ bgcolor: bgColor }}>
             <Box className={classes.imgContainer}>
-                <img src={imageSrc} width="260px" height="120px" />
+                <img src={imageSrc} width="260px" height="120px" alt="" />
             </Box>
             <Box className={classes.typoContainer}>
                 <Typography className={classes.centerTypo}>{typo}</Typography>
