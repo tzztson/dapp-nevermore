@@ -5,7 +5,8 @@ import {
     Button,
     Typography,
     Fade,
-    Slide,
+    Grow,
+    Grid,
 } from "@material-ui/core";
 import { makeStyles, Theme, styled } from "@material-ui/core/styles";
 
@@ -15,23 +16,27 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: "white",
     },
     main: {
-        padding: "80px 0",
+        padding: "100px 0",
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "center",
         alignItems: "center",
-        gap: "1.5rem",
+        gap: "10rem",
         "& > div:first-child": {
-            width: "50%",
+            flex: "7",
+            paddingLeft: "3%",
             "& h1": {
-                fontSize: "5.5rem",
+                fontSize: "6rem",
                 fontFamily: "fantasty",
                 marginTop: "70px",
             },
             "& h4": {
-                fontSize: "1.7rem",
+                fontSize: "2.5rem",
                 fontFamily: "",
                 margin: "40px 0",
             },
+        },
+        "& > div:last-child": {
+            flex: "3",
         },
         "& img": {
             width: "100%",
@@ -39,9 +44,11 @@ const useStyles = makeStyles((theme: Theme) => ({
         "@media screen and (max-width: 1280px)": {
             flexDirection: "column-reverse",
             padding: "20px 0",
+            gap: "2.5rem",
             "& > div:first-child": {
                 width: "100% !important",
                 textAlign: "center",
+                paddingLeft: "unset",
                 "& h1": {
                     marginTop: "unset !important",
                 },
@@ -52,21 +59,42 @@ const useStyles = makeStyles((theme: Theme) => ({
                 "& h1": {
                     fontSize: "13vw !important",
                 },
+                "& h4": {
+                    fontSize: "6vw !important",
+                },
             },
         },
     },
     news: {
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        padding: "50px 0",
+        "& h3": {
+            textAlign: "center",
+            fontSize: "3.5rem",
+            "@media screen and (max-width: 640px)": {
+                fontSize: "2rem",
+            },
+        },
     },
     steps: {
+        marginTop: "4rem",
+        padding: "1.5rem",
+    },
+    step: {
+        padding: "1.5rem",
         display: "flex",
-        justifyContent: "space-between",
+        flexDirection: "column",
         alignItems: "center",
-        "& > div": {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+        textAlign: "center",
+        gap: "10px",
+        "@media screen and (max-width: 450px)": {
+            "& img": {
+                width: "100%",
+                height: "auto",
+            },
         },
     },
 }));
@@ -106,18 +134,58 @@ export default function Home() {
                 </Box>
             </Fade>
 
-            <Slide in={true} timeout={1000}>
+            <Grow in={true} timeout={1000}>
                 <Box className={classes.news}>
                     <Typography variant="h3">
-                        Here’s how to get your free stocks
+                        Here’s how to get your reward
                     </Typography>
-                    <Box className={classes.steps}>
-                        <Box></Box>
-                        <Box></Box>
-                        <Box></Box>
-                    </Box>
+                    <Grid
+                        container
+                        justifyContent="space-around"
+                        className={classes.steps}
+                    >
+                        <Grid item sm={12} md={4}>
+                            <Box className={classes.step}>
+                                <img
+                                    src={require("../assets/image/step1.png")}
+                                    alt=""
+                                    width={120}
+                                    height={120}
+                                />
+                                <Typography variant="h5">
+                                    Open an account
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item sm={12} md={4}>
+                            <Box className={classes.step}>
+                                <img
+                                    src={require("../assets/image/step2.png")}
+                                    alt=""
+                                    width={120}
+                                    height={120}
+                                />
+                                <Typography variant="h5">
+                                    Deposit any amount
+                                </Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item sm={12} md={4}>
+                            <Box className={classes.step}>
+                                <img
+                                    src={require("../assets/image/step3.png")}
+                                    alt=""
+                                    width={120}
+                                    height={120}
+                                />
+                                <Typography variant="h5">
+                                    Get up reward
+                                </Typography>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Box>
-            </Slide>
+            </Grow>
         </Container>
     );
 }

@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: "white",
         position: "sticky",
         top: "20px",
+        zIndex: 20,
     },
     content: {
         backgroundColor: "transparent",
