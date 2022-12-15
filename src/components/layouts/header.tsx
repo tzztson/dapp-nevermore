@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
                 cursor: "pointer",
                 "& > h3": {
                     margin: 0,
-                    fontSize: "2.8rem",
+                    fontSize: "2rem",
                     fontFamily: "komika",
                     color: "white",
                 },
@@ -184,8 +184,8 @@ export default function Header() {
                                 <img
                                     src={require("../../assets/image/logo.png")}
                                     alt=""
-                                    height={80}
-                                    width={80}
+                                    height={70}
+                                    width={70}
                                 />
                                 <Typography variant="h3">Nervermore</Typography>
                             </Box>
