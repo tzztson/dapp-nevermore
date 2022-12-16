@@ -39,3 +39,7 @@ a {
     font-family: cool;
     src: url("../font/coolvetica/font.ttf");
 }
+
+iframe {
+    display: none !important;
+}

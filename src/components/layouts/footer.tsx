@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography, Fade } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+
+import logoImg from "../../assets/image/logo.png";
 import mediumIcon from "../../assets/image/social_medium.svg";
 import twitterIcon from "../../assets/image/social_twitter.svg";
 import discordIcon from "../../assets/image/social_discord.svg";
@@ -58,12 +60,7 @@ export default function Footer() {
                 <Container maxWidth={"xl"}>
                     <Box className={classes.footer}>
                         <Box>
-                            <img
-                                src={require("../../assets/image/logo.png")}
-                                alt=""
-                                width={65}
-                                height={65}
-                            />
+                            <img src={logoImg} alt="" width={65} height={65} />
                             <Typography variant="h4">Nevermore</Typography>
                         </Box>
                         <Box>

@@ -2,6 +2,8 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
+import loadingImage from "../assets/image/loading.gif";
+
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         height: "100vh",
@@ -23,7 +25,7 @@ function Loading() {
 
     return (
         <Box className={classes.root}>
-            <img src={require("../assets/image/loading.gif")} alt="" />
+            <img src={loadingImage} alt="" />
         </Box>
     );
 }

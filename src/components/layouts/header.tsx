@@ -7,12 +7,16 @@ import {
     IconButton,
     Typography,
     Fade,
+    CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme, styled } from "@material-ui/core/styles";
+import { useWallet } from "use-wallet2";
+import { ethers } from "ethers";
 
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import DehazeRounded from "@material-ui/icons/DehazeRounded";
 
+import logoImage from "../../assets/image/logo.png";
 import metamaskLogo from "../../assets/image/metamask.svg";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -119,21 +123,58 @@ const WalletButton = styled(Button)({
     padding: "15px 20px",
     fontSize: "1rem",
     borderRadius: "10px",
-    "& img": {
-        paddingRight: "10px",
+    "& .MuiButton-label": {
+        gap: "10px",
     },
 });
 
 export default function Header() {
     const navigate = useNavigate();
+    const wallet = useWallet();
     const classes = useStyles();
     const [openNav, setOpenNav] = React.useState(false);
+
+    const styledAddress = wallet.account
+        ? wallet.account.slice(0, 6) + "..." + wallet.account.slice(-4)
+        : "Connet Wallet";
 
     React.useEffect(() => {
         window.addEventListener("resize", () => {
             window.innerWidth >= 960 && setOpenNav(false);
         });
     }, []);
+
+    React.useEffect(() => {
+        if (wallet.status === "connected") checkChainId();
+    }, [wallet.status]);
+
+    const checkChainId = async () => {
+        if (wallet.status === "connected" && wallet.ethereum) {
+            const provider = new ethers.providers.Web3Provider(wallet.ethereum);
+
+            console.log(wallet.chainId);
+
+            if (wallet.chainId != 4002) {
+                await provider.send("wallet_switchEthereumChain", [
+                    { chainId: "0xFA2" },
+                ]);
+
+                await provider.send("wallet_addEthereumChain", [
+                    {
+                        chainId: "0xFA2",
+                        rpcUrls: ["https://rpc.testnet.fantom.network/"],
+                        chainName: "Fantom - Testnet",
+                        nativeCurrency: {
+                            name: "FTM",
+                            symbol: "FTM",
+                            decimals: 18,
+                        },
+                        blockExplorerUrls: ["https://testnet.ftmscan.com/"],
+                    },
+                ]);
+            }
+        }
+    };
 
     const MobileList = (
         <>
@@ -156,15 +197,42 @@ export default function Header() {
                         </ul>
                     </Box>
                     <Box className="wallet_button">
-                        <WalletButton variant="contained" color="primary">
-                            <img
-                                src={metamaskLogo}
-                                alt=""
-                                width={30}
-                                height={30}
-                            />
-                            <Typography variant="h6">Connect Wallet</Typography>
-                        </WalletButton>
+                        {wallet.status === "connected" ? (
+                            <WalletButton variant="contained" color="primary">
+                                <img
+                                    src={metamaskLogo}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                <Typography variant="h6">
+                                    {styledAddress}
+                                </Typography>
+                            </WalletButton>
+                        ) : wallet.status === "connecting" ? (
+                            <WalletButton variant="contained" color="primary">
+                                <CircularProgress color="secondary" size={30} />
+                                <Typography variant="h6">
+                                    Connecting...
+                                </Typography>
+                            </WalletButton>
+                        ) : (
+                            <WalletButton
+                                variant="contained"
+                                color="primary"
+                                onClick={() => wallet.connect()}
+                            >
+                                <img
+                                    src={metamaskLogo}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                                <Typography variant="h6">
+                                    Connect Wallet
+                                </Typography>
+                            </WalletButton>
+                        )}
                     </Box>
                 </Box>
             </Fade>
@@ -182,7 +250,7 @@ export default function Header() {
                                 onClick={() => navigate("/home")}
                             >
                                 <img
-                                    src={require("../../assets/image/logo.png")}
+                                    src={logoImage}
                                     alt=""
                                     height={70}
                                     width={70}
@@ -206,18 +274,51 @@ export default function Header() {
                                 </ul>
                             </Box>
                             <Box className="wallet_button desktop">
-                                <WalletButton
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    <img
-                                        src={metamaskLogo}
-                                        alt=""
-                                        width={30}
-                                        height={30}
-                                    />{" "}
-                                    Connect Wallet
-                                </WalletButton>
+                                {wallet.status === "connected" ? (
+                                    <WalletButton
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        <img
+                                            src={metamaskLogo}
+                                            alt=""
+                                            width={30}
+                                            height={30}
+                                        />
+                                        <Typography variant="h6">
+                                            {styledAddress}
+                                        </Typography>
+                                    </WalletButton>
+                                ) : wallet.status === "connecting" ? (
+                                    <WalletButton
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        <CircularProgress
+                                            color="secondary"
+                                            size={30}
+                                        />
+                                        <Typography variant="h6">
+                                            Connecting...
+                                        </Typography>
+                                    </WalletButton>
+                                ) : (
+                                    <WalletButton
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => wallet.connect()}
+                                    >
+                                        <img
+                                            src={metamaskLogo}
+                                            alt=""
+                                            width={30}
+                                            height={30}
+                                        />
+                                        <Typography variant="h6">
+                                            Connect Wallet
+                                        </Typography>
+                                    </WalletButton>
+                                )}
                             </Box>
                         </Box>
                         <Box>

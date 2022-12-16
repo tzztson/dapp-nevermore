@@ -9,6 +9,12 @@ import {
     Grid,
 } from "@material-ui/core";
 import { makeStyles, Theme, styled } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+
+import logoImg from "../assets/image/logo.png";
+import step1Img from "../assets/image/step1.png";
+import step2Img from "../assets/image/step2.png";
+import step3Img from "../assets/image/step3.png";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -138,12 +144,14 @@ export default function Home() {
                             Use the words 'low rewards' and 'inflation' to
                             address me again and I can't gurantee your safety
                         </Typography>
-                        <StakeButton variant="contained" color="primary">
-                            Stake
-                        </StakeButton>
+                        <Link to="/stake">
+                            <StakeButton variant="contained" color="primary">
+                                Stake
+                            </StakeButton>
+                        </Link>
                     </Box>
                     <Box>
-                        <img src={require("../assets/image/logo.png")} alt="" />
+                        <img src={logoImg} alt="" />
                     </Box>
                 </Box>
             </Fade>
@@ -161,7 +169,7 @@ export default function Home() {
                         <Grid item sm={12} md={4}>
                             <Box className={classes.step}>
                                 <img
-                                    src={require("../assets/image/step1.png")}
+                                    src={step1Img}
                                     alt=""
                                     width={120}
                                     height={120}
@@ -174,7 +182,7 @@ export default function Home() {
                         <Grid item sm={12} md={4}>
                             <Box className={classes.step}>
                                 <img
-                                    src={require("../assets/image/step2.png")}
+                                    src={step2Img}
                                     alt=""
                                     width={120}
                                     height={120}
@@ -187,7 +195,7 @@ export default function Home() {
                         <Grid item sm={12} md={4}>
                             <Box className={classes.step}>
                                 <img
-                                    src={require("../assets/image/step3.png")}
+                                    src={step3Img}
                                     alt=""
                                     width={120}
                                     height={120}
