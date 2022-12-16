@@ -17,7 +17,7 @@ export const delay = (delayTimes: number) => {
  * @param {Number} value - data that need to be change
  * @param {Number} d - decimals
  */
-export const toBigNum = (value: number | string, d = 18) => {
+export const toBigNum = (value: number | string, d: number = 18) => {
     return ethers.utils.parseUnits(String(value), d);
 };
 
@@ -26,6 +26,6 @@ export const toBigNum = (value: number | string, d = 18) => {
  * @param {Number} value - data that need to be change
  * @param {Number} d - decimals
  */
-export const fromBigNum = (value: number | string, d = 18) => {
+export const fromBigNum = (value: number | string, d: number = 18) => {
     return ethers.utils.formatUnits(value, d);
 };

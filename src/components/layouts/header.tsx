@@ -12,10 +12,10 @@ import {
 import { makeStyles, Theme, styled } from "@material-ui/core/styles";
 import { useWallet } from "use-wallet2";
 import { ethers } from "ethers";
-
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import DehazeRounded from "@material-ui/icons/DehazeRounded";
 
+import { networks } from "../networks";
 import logoImage from "../../assets/image/logo.png";
 import metamaskLogo from "../../assets/image/metamask.svg";
 
@@ -151,26 +151,16 @@ export default function Header() {
     const checkChainId = async () => {
         if (wallet.status === "connected" && wallet.ethereum) {
             const provider = new ethers.providers.Web3Provider(wallet.ethereum);
+            const targetChainId =
+                Number(process.env.REACT_APP_CHAINID) || 10001;
 
-            console.log(wallet.chainId);
-
-            if (wallet.chainId != 4002) {
+            if (wallet.chainId !== targetChainId) {
                 await provider.send("wallet_switchEthereumChain", [
-                    { chainId: "0xFA2" },
+                    { chainId: "0x" + targetChainId.toString(16) },
                 ]);
 
                 await provider.send("wallet_addEthereumChain", [
-                    {
-                        chainId: "0xFA2",
-                        rpcUrls: ["https://rpc.testnet.fantom.network/"],
-                        chainName: "Fantom - Testnet",
-                        nativeCurrency: {
-                            name: "FTM",
-                            symbol: "FTM",
-                            decimals: 18,
-                        },
-                        blockExplorerUrls: ["https://testnet.ftmscan.com/"],
-                    },
+                    networks[targetChainId],
                 ]);
             }
         }

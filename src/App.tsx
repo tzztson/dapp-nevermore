@@ -28,9 +28,9 @@ function App() {
         <div className="main">
             <ThemeProvider theme={theme}>
                 <UseWalletProvider>
-                    <Provider>
-                        <Router>
-                            <Suspense fallback={<Loading />}>
+                    <Router>
+                        <Suspense fallback={<Loading />}>
+                            <Provider>
                                 <Header />
                                 <Routes>
                                     <Route
@@ -41,10 +41,10 @@ function App() {
                                     <Route path="/stake" element={<Stake />} />
                                     <Route path="*" element={<NotFound />} />
                                 </Routes>
-                                <Footer />
-                            </Suspense>
-                        </Router>
-                    </Provider>
+                            </Provider>
+                            <Footer />
+                        </Suspense>
+                    </Router>
                 </UseWalletProvider>
             </ThemeProvider>
         </div>

@@ -8,4 +8,7 @@ declare interface MarkBox {
 declare interface PropsObject {
     signer: null;
     price: number;
+    totalStake: number;
+    totalStaker: number;
+    apy: number;
 }

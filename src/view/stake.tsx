@@ -8,33 +8,12 @@ import {
     Fade,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import MarkBox from "../components/markBox";
+import { useGlobalContext } from "../context";
 
 import symbol1 from "../assets/image/symbol1.png";
 import symbol2 from "../assets/image/symbol2.png";
 import symbol3 from "../assets/image/symbol3.png";
 import symbol4 from "../assets/image/symbol4.png";
-
-const MarkBoxConstants = [
-    {
-        bgColor: "#ffa94d",
-        imageSrc: symbol1,
-        typo: "Total $WD staked",
-        value: 0,
-    },
-    {
-        bgColor: "#ff6970",
-        imageSrc: symbol2,
-        typo: "Number of Stakers",
-        value: 0,
-    },
-    {
-        bgColor: "#76b8ff",
-        imageSrc: symbol3,
-        typo: "Reward amount (APY)",
-        value: 0,
-    },
-];
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -86,6 +65,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxContainer: {
         display: "flex",
         gap: "24px",
+        "& > div:nth-child(1)": {
+            backgroundColor: "#ffa94d",
+        },
+        "& > div:nth-child(2)": {
+            backgroundColor: "#ff6970",
+        },
+        "& > div:nth-child(3)": {
+            backgroundColor: "#76b8ff",
+        },
         "@media screen and (max-width: 1024px)": {
             flexDirection: "column",
             width: "100%",
@@ -204,10 +192,52 @@ const useStyles = makeStyles((theme: Theme) => ({
         fontSize: "2rem",
         fontFamily: "cool",
     },
+    markBox: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        padding: "60px 8px",
+        borderRadius: "12px",
+        border: "1px solid purple",
+        flexWrap: "wrap",
+        "@media screen and (max-width: 1024px)": {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+    },
+    centerTypo: {
+        textAlign: "center",
+        fontFamily: "cool",
+        letterSpacing: "1px",
+        fontSize: "24px",
+        minWidth: "250px",
+    },
+    imgContainer: {
+        flex: "1",
+        display: "flex",
+        justifyContent: "center",
+        "& > img": {
+            height: "100%",
+            "@media and (max-width)": {
+                width: "100%",
+                objectFit: "cover",
+            },
+        },
+    },
+    typoContainer: {
+        flex: "1",
+        display: "flex",
+        flexDirection: "column",
+        textAlign: "center",
+    },
 }));
 
 export default function Stake() {
     const classes = useStyles();
+    const [state]: any = useGlobalContext();
+
+    console.log(state);
 
     return (
         <Container maxWidth={"xl"} className={classes.root}>
@@ -215,15 +245,60 @@ export default function Stake() {
                 <Box className={classes.stakeBoard}>
                     <Box className={classes.mainBoard}>
                         <Box className={classes.boxContainer}>
-                            {MarkBoxConstants.map((ele, ind) => (
-                                <MarkBox
-                                    key={ind}
-                                    bgColor={ele.bgColor}
-                                    imageSrc={ele.imageSrc}
-                                    typo={ele.typo}
-                                    value={ele.value}
-                                />
-                            ))}
+                            <Box className={classes.markBox}>
+                                <Box className={classes.imgContainer}>
+                                    <img
+                                        src={symbol1}
+                                        width="260px"
+                                        height="120px"
+                                        alt=""
+                                    />
+                                </Box>
+                                <Box className={classes.typoContainer}>
+                                    <Typography className={classes.centerTypo}>
+                                        Total $WD staked
+                                    </Typography>
+                                    <Typography className={classes.centerTypo}>
+                                        {state.totalStake}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Box className={classes.markBox}>
+                                <Box className={classes.imgContainer}>
+                                    <img
+                                        src={symbol2}
+                                        width="260px"
+                                        height="120px"
+                                        alt=""
+                                    />
+                                </Box>
+                                <Box className={classes.typoContainer}>
+                                    <Typography className={classes.centerTypo}>
+                                        Number of Stakers
+                                    </Typography>
+                                    <Typography className={classes.centerTypo}>
+                                        {state.totalStaker}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                            <Box className={classes.markBox}>
+                                <Box className={classes.imgContainer}>
+                                    <img
+                                        src={symbol3}
+                                        width="260px"
+                                        height="120px"
+                                        alt=""
+                                    />
+                                </Box>
+                                <Box className={classes.typoContainer}>
+                                    <Typography className={classes.centerTypo}>
+                                        Reward amount (APY)
+                                    </Typography>
+                                    <Typography className={classes.centerTypo}>
+                                        {state.apy / 1000000}%
+                                    </Typography>
+                                </Box>
+                            </Box>
                         </Box>
                         <Box className={classes.handleStake}>
                             <Typography className={classes.stakeTitle}>
