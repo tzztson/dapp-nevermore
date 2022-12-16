@@ -60,7 +60,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
             var promiseArr = [];
             var resultArr = [];
 
-            promiseArr.push(StakeContract.countTotalStake());
+            promiseArr.push(StakeContract.totalStakingAmount());
             promiseArr.push(StakeContract.stakerNum());
             promiseArr.push(StakeContract.APY());
             resultArr = await Promise.all(promiseArr);

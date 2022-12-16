@@ -259,7 +259,7 @@ export default function Stake() {
                                         Total $WD staked
                                     </Typography>
                                     <Typography className={classes.centerTypo}>
-                                        {state.totalStake}
+                                        {Number(state.totalStake).toFixed(3)}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -295,7 +295,12 @@ export default function Stake() {
                                         Reward amount (APY)
                                     </Typography>
                                     <Typography className={classes.centerTypo}>
-                                        {state.apy / 1000000}%
+                                        {parseFloat(
+                                            Number(state.apy / 1000000).toFixed(
+                                                3
+                                            )
+                                        )}
+                                        %
                                     </Typography>
                                 </Box>
                             </Box>
