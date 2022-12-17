@@ -7,9 +7,11 @@ import {
 } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core";
 import { UseWalletProvider } from "use-wallet2";
+import { ToastContainer, Flip } from "react-toastify";
 
 // Global StyleCSS
 import "./assets/style/style.css";
+import "react-toastify/dist/ReactToastify.css";
 
 // Layouts Components
 import Loading from "./components/loading";
@@ -44,6 +46,7 @@ function App() {
                             </Provider>
                             <Footer />
                         </Suspense>
+                        <ToastContainer theme="dark" transition={Flip} />
                     </Router>
                 </UseWalletProvider>
             </ThemeProvider>

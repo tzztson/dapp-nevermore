@@ -9,6 +9,7 @@ import {
     CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { toast } from "react-toastify";
 import { useGlobalContext } from "../context";
 
 import symbol1 from "../assets/image/symbol1.png";
@@ -244,9 +245,10 @@ export default function Stake() {
             setLoading(true);
             await stake({ amount: stakeAmount });
             setLoading(false);
+            toast.success("Successfully Stake");
         } catch (err: any) {
             setLoading(false);
-            console.log(err.message);
+            toast.error("Failed Stake");
         }
     };
 
@@ -255,9 +257,10 @@ export default function Stake() {
             setLoading(true);
             await claim();
             setLoading(false);
+            toast.success("Successfully Claim");
         } catch (err: any) {
             setLoading(false);
-            console.log(err.message);
+            toast.error("Failed Claim");
         }
     };
 
@@ -266,9 +269,10 @@ export default function Stake() {
             setLoading(true);
             await unstake();
             setLoading(false);
+            toast.success("Successfully Withdraw");
         } catch (err: any) {
             setLoading(false);
-            console.log(err.message);
+            toast.error("Failed Withdraw");
         }
     };
 
