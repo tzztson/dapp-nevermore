@@ -98,15 +98,31 @@ const useStyles = makeStyles((theme: Theme) => ({
         },
     },
     stakeAmount: {
-        color: "white",
-        border: "1px solid white",
-        borderRadius: "36px",
-        padding: "0px 0px 0px 18px",
         display: "flex",
-        justifyContent: "space-between",
-        width: "360px",
-        "@media screen and (max-width: 750px)": {
-            width: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        "& > div": {
+            color: "white",
+            border: "1px solid white",
+            borderRadius: "36px",
+            padding: "0px 0px 0px 18px",
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+            "@media screen and (max-width: 750px)": {
+                width: "80%",
+            },
+        },
+        "& > h5": {
+            textAlign: "right",
+            fontSize: "1.3rem",
+            paddingTop: "0.3rem",
+            paddingRight: "1rem",
+            width: "100%",
+            "@media screen and (max-width: 750px)": {
+                width: "80%",
+            },
         },
     },
     stakeTitle: {
@@ -237,8 +253,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function Stake() {
     const classes = useStyles();
     const [state, { stake, claim, unstake }]: any = useGlobalContext();
-    const [loading, setLoading] = React.useState(false);
-    const [stakeAmount, setStakeAmount] = React.useState(0);
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [stakeAmount, setStakeAmount] = React.useState<number>(0);
 
     const handleStake = async () => {
         try {
@@ -274,6 +290,10 @@ export default function Stake() {
             setLoading(false);
             toast.error("Failed Withdraw");
         }
+    };
+
+    const setMax = async () => {
+        setStakeAmount(Number(state.mytoken));
     };
 
     return (
@@ -369,21 +389,30 @@ export default function Stake() {
                                 Stake your $WD Tokens
                             </Typography>
                             <Box className={classes.stakeAmount}>
-                                <InputBase
-                                    placeholder="0"
-                                    className={classes.amountInput}
-                                    onChange={(e: any) =>
-                                        setStakeAmount(e.target.value)
-                                    }
-                                    value={stakeAmount}
-                                />
-                                <Button
-                                    className={classes.maxButton}
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    Max
-                                </Button>
+                                <Box>
+                                    <InputBase
+                                        placeholder="0"
+                                        className={classes.amountInput}
+                                        onChange={(e: any) =>
+                                            setStakeAmount(e.target.value)
+                                        }
+                                        value={stakeAmount}
+                                    />
+                                    <Button
+                                        className={classes.maxButton}
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={setMax}
+                                    >
+                                        Max
+                                    </Button>
+                                </Box>
+                                <Typography variant="h5">
+                                    Balance:{" "}
+                                    {Number(
+                                        Number(state.mytoken).toFixed(3)
+                                    ).toLocaleString()}
+                                </Typography>
                             </Box>
                             {loading ? (
                                 <Button

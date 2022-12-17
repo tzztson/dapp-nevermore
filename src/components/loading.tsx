@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         height: "100vh",
         width: "100%",
-        background: "black",
+        background: "#030303",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

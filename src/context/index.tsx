@@ -27,6 +27,7 @@ const INIT_STATE: PropsObject = {
     totalStake: 0,
     totalStaker: 0,
     apy: 0,
+    mytoken: 0,
     myStaking: 0,
     reward1: 0,
     reward2: 0,
@@ -91,14 +92,22 @@ export default function Provider({ children }: { children: React.ReactNode }) {
 
     const getMyData = async () => {
         try {
-            const result: any = await StakeContract.getStakeInfo(
-                wallet.account
-            );
+            var promiseArr = [];
+            var resultArr = [];
 
-            const mystake = fromBigNum(result._staking, 18);
-            const reward1 = fromBigNum(result._rewardable_1, 18);
-            const reward2 = fromBigNum(result._rewardable_2, 18);
+            promiseArr.push(StakeContract.getStakeInfo(wallet.account));
+            promiseArr.push(TokenContract.balanceOf(wallet.account));
+            resultArr = await Promise.all(promiseArr);
 
+            const mytoken = fromBigNum(resultArr[1], 18);
+            const mystake = fromBigNum(resultArr[0]._staking, 18);
+            const reward1 = fromBigNum(resultArr[0]._rewardable_1, 18);
+            const reward2 = fromBigNum(resultArr[0]._rewardable_2, 18);
+
+            dispatch({
+                type: "mytoken",
+                payload: mytoken,
+            });
             dispatch({
                 type: "myStaking",
                 payload: mystake,
