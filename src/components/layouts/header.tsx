@@ -176,13 +176,31 @@ export default function Header() {
                                 <Link to="/stake">Staking</Link>
                             </li>
                             <li>
-                                <Link to="">Twitter</Link>
+                                <a
+                                    href="https://twitter.com/Nevermore_defi"
+                                    target={"_blank"}
+                                    rel="noreferrer"
+                                >
+                                    Twitter
+                                </a>
                             </li>
                             <li>
-                                <Link to="">Discord</Link>
+                                <a
+                                    href="https://discord.com/invite/WpxKYnMmrC"
+                                    target={"_blank"}
+                                    rel="noreferrer"
+                                >
+                                    Discord
+                                </a>
                             </li>
                             <li>
-                                <Link to="">Doc</Link>
+                                <a
+                                    href="https://pdfhost.io/v/.Lf3yw75H_nevermore_pitchdeck"
+                                    target={"_blank"}
+                                    rel="noreferrer"
+                                >
+                                    Doc
+                                </a>
                             </li>
                         </ul>
                     </Box>
@@ -253,13 +271,31 @@ export default function Header() {
                                         <Link to="/stake">Staking</Link>
                                     </li>
                                     <li>
-                                        <Link to="">Twitter</Link>
+                                        <a
+                                            href="https://twitter.com/Nevermore_defi"
+                                            target={"_blank"}
+                                            rel="noreferrer"
+                                        >
+                                            Twitter
+                                        </a>
                                     </li>
                                     <li>
-                                        <Link to="">Discord</Link>
+                                        <a
+                                            href="https://discord.com/invite/WpxKYnMmrC"
+                                            target={"_blank"}
+                                            rel="noreferrer"
+                                        >
+                                            Discord
+                                        </a>
                                     </li>
                                     <li>
-                                        <Link to="">Doc</Link>
+                                        <a
+                                            href="https://pdfhost.io/v/.Lf3yw75H_nevermore_pitchdeck"
+                                            target={"_blank"}
+                                            rel="noreferrer"
+                                        >
+                                            Doc
+                                        </a>
                                     </li>
                                 </ul>
                             </Box>

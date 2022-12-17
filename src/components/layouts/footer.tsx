@@ -4,7 +4,7 @@ import { Container, Box, Typography, Fade } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 
 import logoImg from "../../assets/image/logo.png";
-import mediumIcon from "../../assets/image/social_medium.svg";
+import docIcon from "../../assets/image/social-docs.svg";
 import twitterIcon from "../../assets/image/social_twitter.svg";
 import discordIcon from "../../assets/image/social_discord.svg";
 
@@ -64,30 +64,42 @@ export default function Footer() {
                             <Typography variant="h4">Nevermore</Typography>
                         </Box>
                         <Box>
-                            <Link to="">
+                            <a
+                                href="https://twitter.com/Nevermore_defi"
+                                target={"_blank"}
+                                rel="noreferrer"
+                            >
                                 <img
                                     src={twitterIcon}
                                     alt=""
                                     width={30}
                                     height={30}
                                 />
-                            </Link>
-                            <Link to="">
+                            </a>
+                            <a
+                                href="https://discord.com/invite/WpxKYnMmrC"
+                                target={"_blank"}
+                                rel="noreferrer"
+                            >
                                 <img
                                     src={discordIcon}
                                     alt=""
                                     width={30}
                                     height={30}
                                 />
-                            </Link>
-                            <Link to="">
+                            </a>
+                            <a
+                                href="https://pdfhost.io/v/.Lf3yw75H_nevermore_pitchdeck"
+                                target={"_blank"}
+                                rel="noreferrer"
+                            >
                                 <img
-                                    src={mediumIcon}
+                                    src={docIcon}
                                     alt=""
                                     width={30}
                                     height={30}
                                 />
-                            </Link>
+                            </a>
                         </Box>
                     </Box>
                 </Container>
