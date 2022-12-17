@@ -6,6 +6,7 @@ import {
     InputBase,
     Typography,
     Fade,
+    CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { useGlobalContext } from "../context";
@@ -210,7 +211,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         textAlign: "center",
         fontFamily: "cool",
         letterSpacing: "1px",
-        fontSize: "24px",
         minWidth: "250px",
     },
     imgContainer: {
@@ -235,9 +235,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Stake() {
     const classes = useStyles();
-    const [state]: any = useGlobalContext();
+    const [state, { stake }]: any = useGlobalContext();
+    const [loading, setLoading] = React.useState(false);
+    const [stakeAmount, setStakeAmount] = React.useState(0);
 
-    console.log(state);
+    const handleStake = async () => {
+        try {
+            setLoading(true);
+            await stake({ amount: stakeAmount });
+            setLoading(false);
+        } catch (err: any) {
+            setLoading(false);
+            console.log(err.message);
+        }
+    };
 
     return (
         <Container maxWidth={"xl"} className={classes.root}>
@@ -255,11 +266,19 @@ export default function Stake() {
                                     />
                                 </Box>
                                 <Box className={classes.typoContainer}>
-                                    <Typography className={classes.centerTypo}>
+                                    <Typography
+                                        className={classes.centerTypo}
+                                        variant="h5"
+                                    >
                                         Total $WD staked
                                     </Typography>
-                                    <Typography className={classes.centerTypo}>
-                                        {Number(state.totalStake).toFixed(3)}
+                                    <Typography
+                                        className={classes.centerTypo}
+                                        variant="h4"
+                                    >
+                                        {Number(
+                                            Number(state.totalStake).toFixed(3)
+                                        ).toLocaleString()}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -273,11 +292,19 @@ export default function Stake() {
                                     />
                                 </Box>
                                 <Box className={classes.typoContainer}>
-                                    <Typography className={classes.centerTypo}>
+                                    <Typography
+                                        className={classes.centerTypo}
+                                        variant="h5"
+                                    >
                                         Number of Stakers
                                     </Typography>
-                                    <Typography className={classes.centerTypo}>
-                                        {state.totalStaker}
+                                    <Typography
+                                        className={classes.centerTypo}
+                                        variant="h4"
+                                    >
+                                        {Number(
+                                            state.totalStaker
+                                        ).toLocaleString()}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -291,15 +318,21 @@ export default function Stake() {
                                     />
                                 </Box>
                                 <Box className={classes.typoContainer}>
-                                    <Typography className={classes.centerTypo}>
+                                    <Typography
+                                        variant="h5"
+                                        className={classes.centerTypo}
+                                    >
                                         Reward amount (APY)
                                     </Typography>
-                                    <Typography className={classes.centerTypo}>
-                                        {parseFloat(
+                                    <Typography
+                                        variant="h4"
+                                        className={classes.centerTypo}
+                                    >
+                                        {Number(
                                             Number(state.apy / 1000000).toFixed(
                                                 3
                                             )
-                                        )}
+                                        ).toLocaleString()}
                                         %
                                     </Typography>
                                 </Box>
@@ -313,6 +346,10 @@ export default function Stake() {
                                 <InputBase
                                     placeholder="0"
                                     className={classes.amountInput}
+                                    onChange={(e: any) =>
+                                        setStakeAmount(e.target.value)
+                                    }
+                                    value={stakeAmount}
                                 />
                                 <Button
                                     className={classes.maxButton}
@@ -322,13 +359,27 @@ export default function Stake() {
                                     Max
                                 </Button>
                             </Box>
-                            <Button
-                                className={classes.stakeButton}
-                                variant="contained"
-                                color="primary"
-                            >
-                                Stake
-                            </Button>
+                            {loading ? (
+                                <Button
+                                    className={classes.stakeButton}
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    <CircularProgress
+                                        color="secondary"
+                                        size={30}
+                                    />
+                                </Button>
+                            ) : (
+                                <Button
+                                    className={classes.stakeButton}
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleStake}
+                                >
+                                    Stake
+                                </Button>
+                            )}
                         </Box>
                     </Box>
                     <Box className={classes.handleBoard}>
@@ -341,15 +392,23 @@ export default function Stake() {
                                     My staked tokens
                                 </Typography>
                                 <Typography className={classes.balance}>
-                                    0.00000 $WD
+                                    {Number(state.myStaking).toFixed(3)} $WD
                                 </Typography>
                             </Box>
                             <Box className={classes.labelContainer}>
                                 <Typography className={classes.label}>
-                                    Estimated Rewards
+                                    Estimated Reward1
                                 </Typography>
                                 <Typography className={classes.balance}>
-                                    0.0000 WETH
+                                    {Number(state.reward1).toFixed(5)} WETH
+                                </Typography>
+                            </Box>
+                            <Box className={classes.labelContainer}>
+                                <Typography className={classes.label}>
+                                    Estimated Reward2
+                                </Typography>
+                                <Typography className={classes.balance}>
+                                    {Number(state.reward2).toFixed(5)} WETH
                                 </Typography>
                             </Box>
                             <Box className={classes.handleButtongroup}>

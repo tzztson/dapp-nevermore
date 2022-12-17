@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { useWallet } from "use-wallet2";
 
 import { TokenContract, StakeContract } from "../contract";
-import { fromBigNum } from "../utils";
+import { fromBigNum, toBigNum } from "../utils";
 
 const GlobalContext = React.createContext({});
 
@@ -27,6 +27,9 @@ const INIT_STATE: PropsObject = {
     totalStake: 0,
     totalStaker: 0,
     apy: 0,
+    myStaking: 0,
+    reward1: 0,
+    reward2: 0,
 };
 
 export default function Provider({ children }: { children: React.ReactNode }) {
@@ -53,6 +56,9 @@ export default function Provider({ children }: { children: React.ReactNode }) {
         };
 
         getSigner();
+        if (wallet.status === "connected") {
+            getMyData();
+        }
     }, [wallet.status]);
 
     const getData = async () => {
@@ -75,16 +81,60 @@ export default function Provider({ children }: { children: React.ReactNode }) {
             });
             dispatch({
                 type: "apy",
-                payload: fromBigNum(resultArr[2], 0),
+                payload: fromBigNum(resultArr[2] * 100, 0),
             });
         } catch (err: any) {
             console.log(err.message);
         }
     };
 
+    const getMyData = async () => {
+        try {
+            const result: any = await StakeContract.getStakeInfo(
+                wallet.account
+            );
+
+            const mystake = fromBigNum(result._staking, 18);
+            const reward1 = fromBigNum(result._rewardable_1, 18);
+            const reward2 = fromBigNum(result._rewardable_2, 18);
+
+            dispatch({
+                type: "myStaking",
+                payload: mystake,
+            });
+            dispatch({
+                type: "reward1",
+                payload: reward1,
+            });
+            dispatch({
+                type: "reward2",
+                payload: reward2,
+            });
+        } catch (err: any) {
+            console.log(err.message);
+        }
+    };
+
+    const stake = async (props: PropsStake) => {
+        const { amount } = props;
+        const provider = new ethers.providers.Web3Provider(wallet.ethereum);
+        const signer = provider.getSigner();
+        const signedTokenContract = TokenContract.connect(signer);
+        await signedTokenContract.approve(
+            StakeContract.address,
+            toBigNum(amount, 18)
+        );
+
+        const signedStakeContract = StakeContract.connect(state.signer);
+        await signedStakeContract.stake(toBigNum(amount, 18), wallet.account);
+    };
+
     return (
         <GlobalContext.Provider
-            value={React.useMemo(() => [state, { dispatch, getData }], [state])}
+            value={React.useMemo(
+                () => [state, { dispatch, getData, getMyData, stake }],
+                [state]
+            )}
         >
             {children}
         </GlobalContext.Provider>

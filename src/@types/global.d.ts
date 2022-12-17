@@ -11,4 +11,11 @@ declare interface PropsObject {
     totalStake: number;
     totalStaker: number;
     apy: number;
+    myStaking: number;
+    reward1: number;
+    reward2: number;
+}
+
+declare interface PropsStake {
+    amount: number;
 }
