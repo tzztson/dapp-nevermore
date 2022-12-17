@@ -235,7 +235,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function Stake() {
     const classes = useStyles();
-    const [state, { stake }]: any = useGlobalContext();
+    const [state, { stake, claim, unstake }]: any = useGlobalContext();
     const [loading, setLoading] = React.useState(false);
     const [stakeAmount, setStakeAmount] = React.useState(0);
 
@@ -243,6 +243,28 @@ export default function Stake() {
         try {
             setLoading(true);
             await stake({ amount: stakeAmount });
+            setLoading(false);
+        } catch (err: any) {
+            setLoading(false);
+            console.log(err.message);
+        }
+    };
+
+    const handleClaim = async () => {
+        try {
+            setLoading(true);
+            await claim();
+            setLoading(false);
+        } catch (err: any) {
+            setLoading(false);
+            console.log(err.message);
+        }
+    };
+
+    const handleWithdraw = async () => {
+        try {
+            setLoading(true);
+            await unstake();
             setLoading(false);
         } catch (err: any) {
             setLoading(false);
@@ -412,15 +434,42 @@ export default function Stake() {
                                 </Typography>
                             </Box>
                             <Box className={classes.handleButtongroup}>
-                                <Button variant="contained" color="primary">
-                                    ClaimReward
-                                </Button>
-                                <Button variant="contained" color="primary">
-                                    Withdraw
-                                </Button>
-                                <Button variant="contained" color="primary">
+                                {loading ? (
+                                    <Button variant="contained" color="primary">
+                                        <CircularProgress
+                                            color="secondary"
+                                            size={30}
+                                        />
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleClaim}
+                                    >
+                                        ClaimReward
+                                    </Button>
+                                )}
+
+                                {loading ? (
+                                    <Button variant="contained" color="primary">
+                                        <CircularProgress
+                                            color="secondary"
+                                            size={30}
+                                        />
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleWithdraw}
+                                    >
+                                        Withdraw
+                                    </Button>
+                                )}
+                                {/* <Button variant="contained" color="primary">
                                     Referral
-                                </Button>
+                                </Button> */}
                             </Box>
                         </Box>
                     </Box>

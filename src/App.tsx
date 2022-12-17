@@ -27,7 +27,7 @@ function App() {
     return (
         <div className="main">
             <ThemeProvider theme={theme}>
-                <UseWalletProvider>
+                <UseWalletProvider autoConnect={true}>
                     <Router>
                         <Suspense fallback={<Loading />}>
                             <Provider>
